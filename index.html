@@ -1,0 +1,1622 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>REALITY CHECK AI</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="REALITY CHECK AI — Intelligence For Career Readiness"
+    />
+    <meta property="og:title" content="REALITY CHECK AI" />
+    <meta
+      property="og:description"
+      content="REALITY CHECK AI — Intelligence For Career Readiness"
+    />
+    <meta property="og:image" content="/social.png" />
+    <meta
+      property="og:url"
+      content="https://superb-1wacbayr.peachworlds.com/"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.ico" />
+    <link href="/website-base.css" rel="stylesheet" />
+    <link href="/styles.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Outfit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,600,700,800,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      window._pwInitialPath = "/";
+    </script>
+    <script defer="defer" fetchpriority="high" src="/script.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const isHome =
+          window.location.pathname === "/" ||
+          window.location.pathname.endsWith("index.html") ||
+          window.location.pathname === "";
+        if (!isHome) return;
+
+        const hasSession = sessionStorage.getItem("realityCheckLoaded");
+        if (!hasSession) {
+          sessionStorage.setItem("realityCheckLoaded", "1");
+        }
+
+        if (hasSession) {
+          const loader = document.getElementById("pwb-loading-wrap");
+          if (loader) {
+            loader.style.display = "none";
+          }
+
+          setTimeout(() => {
+            if (window.gsap && window.gsap.globalTimeline) {
+              window.gsap.globalTimeline.time(5.5); // Fast forward past loader sequence
+            }
+          }, 150);
+        }
+      });
+
+      // Cinematic scroll borders handler
+      window.addEventListener("scroll", () => {
+        const isHome =
+          window.location.pathname === "/" ||
+          window.location.pathname.endsWith("index.html") ||
+          window.location.pathname === "";
+        if (!isHome) return;
+
+        const topBorder = document.getElementById("cinematic-top");
+        const bottomBorder = document.getElementById("cinematic-bottom");
+        if (!topBorder || !bottomBorder) return;
+
+        const scrollEnd = Math.max(
+          0,
+          document.documentElement.scrollHeight - window.innerHeight,
+        );
+        const isAtEnd = window.scrollY >= scrollEnd - 200;
+
+        if (isAtEnd) {
+          topBorder.style.transform = "translateY(-100%)";
+          bottomBorder.style.transform = "translateY(100%)";
+        } else {
+          topBorder.style.transform = "translateY(0)";
+          bottomBorder.style.transform = "translateY(0)";
+
+          if (window._cinematicScrollTimeout)
+            clearTimeout(window._cinematicScrollTimeout);
+          window._cinematicScrollTimeout = setTimeout(() => {
+            topBorder.style.transform = "translateY(-100%)";
+            bottomBorder.style.transform = "translateY(100%)";
+          }, 800);
+        }
+
+        // Handle the scroll prompt fade
+        const prompt = document.getElementById("scroll-prompt");
+        if (prompt) {
+          prompt.style.opacity = window.scrollY > 50 ? "0" : "1";
+          prompt.style.transform =
+            window.scrollY > 50
+              ? "translate(-50%, -20px)"
+              : "translate(-50%, 0)";
+        }
+      });
+    </script>
+
+    <div
+      id="cinematic-top"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 10vh;
+        background: #000;
+        z-index: 9998;
+        pointer-events: none;
+        transform: translateY(-100%);
+        transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      "
+    ></div>
+    <div
+      id="cinematic-bottom"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 10vh;
+        background: #000;
+        z-index: 9998;
+        pointer-events: none;
+        transform: translateY(100%);
+        transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+      "
+    ></div>
+
+    <div
+      id="scroll-prompt"
+      style="
+        position: fixed;
+        bottom: 48px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        font-family: &quot;Orbitron&quot;, sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.55);
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        z-index: 9000;
+        pointer-events: none;
+        opacity: 0;
+        transition:
+          opacity 1.2s ease,
+          transform 1.2s ease;
+      "
+    >
+      <span>Scroll To Check Reality</span>
+      <div
+        style="
+          width: 1px;
+          height: 30px;
+          background: linear-gradient(
+            to bottom,
+            rgba(44, 195, 255, 0.7),
+            transparent
+          );
+          animation: pulseLine 2s infinite ease-in-out;
+        "
+      ></div>
+      <style>
+        @keyframes pulseLine {
+          0%,
+          100% {
+            height: 10px;
+            opacity: 0.2;
+          }
+          50% {
+            height: 35px;
+            opacity: 1;
+          }
+        }
+      </style>
+    </div>
+    <script>
+      // Show scroll prompt only after loading screen is gone
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var prompt = document.getElementById('scroll-prompt');
+          if (prompt) {
+            var isHome = window.location.pathname === '/' ||
+              window.location.pathname.endsWith('index.html') ||
+              window.location.pathname === '';
+            if (isHome) {
+              var loader = document.getElementById('pwb-loading-wrap');
+              var showPrompt = function() {
+                prompt.style.opacity = '1';
+              };
+              if (!loader || loader.style.display === 'none') {
+                setTimeout(showPrompt, 800);
+              } else {
+                var obs = new MutationObserver(function() {
+                  if (loader.style.display === 'none' || parseFloat(window.getComputedStyle(loader).opacity) < 0.05) {
+                    obs.disconnect();
+                    setTimeout(showPrompt, 600);
+                  }
+                });
+                obs.observe(loader, { attributes: true, attributeFilter: ['style', 'class'] });
+                // Fallback: show after 4 seconds
+                setTimeout(showPrompt, 4000);
+              }
+            }
+          }
+        }, 300);
+      });
+    </script>
+
+    <meta name="pw:has-visual-script" content="false" />
+    <link
+      rel="preload"
+      href="/scene-state/2e9abea3-55c0-4563-9baa-8deeab210e58.json"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/a1b2c3d4-4bad5918ed494deaa0d1a2f7074acf48_opt-(2).glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/e5f6g7h8-button4_slim-(1).glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/6194a635-vr_art_gallery.glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/8c82a773-virtual_stage_floating_hexes.glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/7a99f698-PlatformBase1.glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/05e8c76b-NeonLight2.glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/0d273bc0-Particle.glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/94fbab88-studio_small_04_1k.exr"
+      as="image"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/1a4cb34d-ghost_in_the_shell.glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/0848e7f9-Frame-427321734.jpg"
+      as="image"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/fe9fcbf4-Frame-427321719.jpg"
+      as="image"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/f683904c-Bento-Card-Vol-37E.jpg"
+      as="image"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/8954571a-Frame-427321721.jpg"
+      as="image"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/88a0665e-Frame-427321730.jpg"
+      as="image"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/ddc9cafc-Frame-427321731.jpg"
+      as="image"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/assets/7473cc8c-Frame-427321732.jpg"
+      as="image"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/ui-state.json"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      html,
+      body,
+      [data-gjs-type="wrapper"] {
+        height: 100%;
+      }
+
+      * {
+        scrollbar-width: none;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Hiding repetitive Assessment CTA Buttons */
+      #ibty0f-2,
+      #ibty0f-3,
+      #ibty0f {
+        display: none !important;
+      }
+
+      .pwb-scene > canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        user-select: none;
+      }
+
+      #pwb-loading-wrap {
+        background-color: #000000;
+      }
+
+      #ikbsuj {
+        width: 100%;
+        height: 100dvh;
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #ik8oi1 {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #ijirst {
+        color: #ff4100;
+        display: block;
+        position: absolute;
+        font-size: 18px;
+        text-align: center;
+        font-family: Inter;
+        font-weight: bold;
+      }
+
+      #pwb-loading-page-logo {
+        display: none;
+      }
+
+      @font-face {
+        src: url("/assets/b8564d81-Syne-Bold.ttf");
+        font-family: Syne-Bold;
+      }
+
+      @font-face {
+        src: url("/assets/2de0f945-Syne-Regular.ttf");
+        font-family: Syne-Regular;
+      }
+
+      @font-face {
+        src: url("/assets/cc7fd4b7-Syne-SemiBold.ttf");
+        font-family: Syne-SemiBold;
+      }
+
+      @font-face {
+        src: url("/assets/d499ce98-Syne-ExtraBold.ttf");
+        font-family: Syne-ExtraBold;
+      }
+
+      @font-face {
+        src: url("/assets/39f68032-Syne-Medium.ttf");
+        font-family: Syne-Medium;
+      }
+
+      @font-face {
+        src: url("/assets/b8564d81-Syne-Bold.ttf");
+        font-family: Syne-Bold;
+      }
+
+      @font-face {
+        src: url("/assets/2de0f945-Syne-Regular.ttf");
+        font-family: Syne-Regular;
+      }
+
+      @font-face {
+        src: url("/assets/d499ce98-Syne-ExtraBold.ttf");
+        font-family: Syne-ExtraBold;
+      }
+
+      @font-face {
+        src: url("/assets/b8564d81-Syne-Bold.ttf");
+        font-family: Syne-Bold;
+      }
+
+      @font-face {
+        src: url("/assets/06c87091-Necosmic-Display.otf");
+        font-family: Necosmic-Display;
+      }
+
+      @font-face {
+        src: url("/assets/f5e6b6b5-Manrope-VariableFont_wght.ttf");
+        font-family: Manrope-VariableFont_wght;
+      }
+
+      @font-face {
+        src: url("/assets/95859f15-Manrope-Regular.ttf");
+        font-family: Manrope-Regular;
+      }
+
+      @font-face {
+        src: url("/assets/3e19d892-Manrope-Medium.ttf");
+        font-family: Manrope-Medium;
+      }
+
+      @font-face {
+        src: url("/assets/2a20f9fd-Manrope-SemiBold.ttf");
+        font-family: Manrope-SemiBold;
+      }
+
+      @font-face {
+        src: url("/assets/5cb7eb1e-Manrope-Light.ttf");
+        font-family: Manrope-Light;
+      }
+
+      #ielp-2-2,
+      #ib9q-2-3-2-4-2-2-2,
+      #ielp-2-2-3-2 {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body id="i23o">
+    <div class="atmospheric-container">
+      <div class="mesh-gradient"></div>
+    </div>
+
+    <div id="pwb-body-wrap">
+      <div id="ieao" class="pwb-flex-grid-wrap">
+        <div id="iti9" class="pwb-scene"></div>
+      </div>
+      <div id="ipj4" class="pwb-block pwb-flex-grid-wrap" style="width: 100%">
+        <div
+          id="ib9q"
+          class="pwb-block pwb-flex-grid-wrap"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 40px;
+            box-sizing: border-box;
+          "
+        >
+          <img
+            src="/assets/9026a31c-LOGO.svg"
+            loading="lazy"
+            id="in2cka"
+            style="
+              height: 48px;
+              object-fit: contain;
+              filter: drop-shadow(0 0 10px rgba(0, 195, 255, 0.3));
+            "
+          />
+          <div
+            id="ivmwtj"
+            class="pwb-flex-grid-wrap"
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 30px;
+              flex: 1;
+            "
+          >
+            <a
+              href="index.html"
+              id="i1u33-2-3"
+              style="
+                text-decoration: none;
+                color: inherit;
+                font-size: 0.95rem;
+                font-family: &quot;Inter&quot;, sans-serif;
+                transition: 0.2s;
+              "
+              onmouseover="this.style.color = '#00c3ff'"
+              onmouseout="this.style.color = 'inherit'"
+              >HOME</a
+            ><a
+              href="realitycheck.html"
+              id="i1u33-2-3-2"
+              style="
+                text-decoration: none;
+                color: inherit;
+                font-size: 0.95rem;
+                font-family: &quot;Inter&quot;, sans-serif;
+                transition: 0.2s;
+              "
+              onmouseover="this.style.color = '#00c3ff'"
+              onmouseout="this.style.color = 'inherit'"
+              >Reality Check AI</a
+            ><a
+              href="analytics.html"
+              id="i1u33-2-3-2-2"
+              style="
+                text-decoration: none;
+                color: inherit;
+                font-size: 0.95rem;
+                font-family: &quot;Inter&quot;, sans-serif;
+                transition: 0.2s;
+              "
+              onmouseover="this.style.color = '#00c3ff'"
+              onmouseout="this.style.color = 'inherit'"
+              >Analytics</a
+            ><a
+              href="about.html"
+              id="i1u33-nav-about"
+              style="
+                text-decoration: none;
+                color: inherit;
+                font-size: 0.95rem;
+                font-family: &quot;Inter&quot;, sans-serif;
+                transition: 0.2s;
+              "
+              onmouseover="this.style.color = '#00c3ff'"
+              onmouseout="this.style.color = 'inherit'"
+              >About</a
+            >
+          </div>
+          <div
+            class="auth-buttons"
+            style="
+              display: flex;
+              gap: 15px;
+              align-items: center;
+              justify-content: flex-end;
+            "
+          >
+            <a
+              href="#"
+              style="
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #fff;
+                transition: 0.2s;
+                font-family: &quot;Inter&quot;, sans-serif;
+              "
+              onmouseover="this.style.color = '#00c3ff'"
+              onmouseout="this.style.color = '#fff'"
+              >Log in</a
+            >
+            <a
+              href="#"
+              style="
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: #000;
+                background: #00c3ff;
+                padding: 10px 24px;
+                border-radius: 30px;
+                box-shadow: 0 0 15px rgba(0, 195, 255, 0.4);
+                transition: 0.3s;
+                font-family: &quot;Inter&quot;, sans-serif;
+              "
+              onmouseover="
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 0 25px rgba(0,195,255,0.8)';
+              "
+              onmouseout="
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 0 15px rgba(0,195,255,0.4)';
+              "
+              >Sign Up</a
+            >
+          </div>
+        </div>
+      </div>
+      <div id="inx0x5" class="pwb-flex-grid-wrap">
+        <div id="ipj4-2" class="pwb-block pwb-flex-grid-wrap">
+          <div id="ib9q-2" class="pwb-block pwb-flex-grid-wrap">
+            <div id="i9x7-2-2-2-2" class="pwb-block pwb-flex-grid-wrap">
+              <div
+                id="iosqkh-2-3-2-3"
+                class="pwb-block pwb-flex-grid-wrap"
+                style="display: none"
+              ></div>
+              <div id="iosqkh-2-2-2-2-2" class="pwb-block pwb-flex-grid-wrap">
+                <div
+                  id="i0op89-3-2-2-2-2-2-2-3"
+                  class="pwb-block pwb-flex-grid-wrap"
+                >
+                  <div
+                    id="igxb-4-2-2-3-2-2-2-2-3-4"
+                    class="pwb-text"
+                    style="
+                      font-family: &quot;Orbitron&quot;, sans-serif;
+                      font-size: clamp(3rem, 7vw, 6.5rem);
+                      font-weight: 800;
+                      line-height: 1.05;
+                      letter-spacing: -2px;
+                      padding-bottom: 20px;
+                      text-shadow: 0 10px 40px rgba(0, 195, 255, 0.2);
+                      background: linear-gradient(
+                        135deg,
+                        #ffffff 40%,
+                        #00c3ff 100%
+                      );
+                      -webkit-background-clip: text;
+                      -webkit-text-fill-color: transparent;
+                      background-clip: text;
+                      color: transparent;
+                      margin-bottom: 15px;
+                    "
+                  >
+                    REALITY CHECK AI
+                  </div>
+                  <div id="igimd-2-2" class="pwb-flex-grid-wrap">
+                    <div id="igimd-3" class="pwb-flex-grid-wrap"></div>
+                    <div
+                      id="igxb-4-2-2-3-2-2-2-2-3-2-2"
+                      class="pwb-text"
+                      style="
+                        font-family: &quot;Inter&quot;, sans-serif;
+                        font-size: 1.25rem;
+                        font-weight: 300;
+                        line-height: 1.6;
+                        color: rgba(255, 255, 255, 0.7);
+                        max-width: 650px;
+                        margin-top: 15px;
+                        letter-spacing: 0.5px;
+                      "
+                    >
+                      AI-powered placement intelligence that analyzes your
+                      skills, identifies career gaps, and guides you toward your
+                      dream company.<br id="ivbox-2" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Removed Assessment CTA -->
+            </div>
+            <div id="iy92-2" class="pwb-block pwb-flex-grid-wrap"></div>
+          </div>
+        </div>
+        <div id="ib9q-2-3-2-4-3" class="pwb-block pwb-flex-grid-wrap">
+          <div id="i9x7-2-2-3-3-3" class="pwb-block pwb-flex-grid-wrap">
+            <div id="iosqkh-2-3-3-2-2-3" class="pwb-block pwb-flex-grid-wrap">
+              <div
+                id="i0op89-4-2-2-2-2-2-2-3"
+                class="pwb-block pwb-flex-grid-wrap"
+              >
+                <div
+                  id="iosqkh-2-3-2-2-2-3-2"
+                  class="pwb-block pwb-flex-grid-wrap"
+                >
+                  <div id="igxb-4-2-2-3-2-2-2-2-3-3-2-2-3-2" class="pwb-text">
+                    ANALYSIS
+                  </div>
+                </div>
+                <div id="igxb-3-2-2-2-2-2-2-2-2-4" class="pwb-text">
+                  Placement Readiness Score<br id="i8en8l-3" />
+                </div>
+                <div id="igxb-3-2-2-2-2-2-2-2-2-3-2" class="pwb-text">
+                  Get actionable placement intelligence to analyze skill gaps,
+                  predict placement probability, and match with the top tech
+                  companies.<br id="i8en8l-2-2" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="iy92-2-3-2-4-3" class="pwb-block pwb-flex-grid-wrap"></div>
+        </div>
+        <div id="ib9q-2-3-2-4-2-2" class="pwb-block pwb-flex-grid-wrap">
+          <div id="i9x7-2-2-3-3-2-2" class="pwb-block pwb-flex-grid-wrap">
+            <div id="iosqkh-2-3-3-2-2-2-2" class="pwb-block pwb-flex-grid-wrap">
+              <div
+                id="i0op89-4-2-2-2-2-2-2-2-2"
+                class="pwb-block pwb-flex-grid-wrap"
+              >
+                <div
+                  id="iosqkh-2-3-2-2-2-3"
+                  class="pwb-block pwb-flex-grid-wrap"
+                >
+                  <div id="igxb-4-2-2-3-2-2-2-2-3-3-2-2-3" class="pwb-text">
+                    GAP DETECTION
+                  </div>
+                </div>
+                <div id="igxb-3-2-2-2-2-2-2-2-2" class="pwb-text">
+                  Skill Match Index<br id="i8en8l" />
+                </div>
+                <div id="igxb-3-2-2-2-2-2-2-2-2-3" class="pwb-text">
+                  Get actionable placement intelligence to analyze skill gaps,
+                  predict placement probability, and match with the top tech
+                  companies.<br id="i8en8l-2" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="iy92-2-3-2-4-2-2" class="pwb-block pwb-flex-grid-wrap"></div>
+        </div>
+        <div id="ib9q-2-3-2-4" class="pwb-block pwb-flex-grid-wrap">
+          <div id="i9x7-2-2-3-3" class="pwb-block pwb-flex-grid-wrap">
+            <div id="iosqkh-2-3-3-2-2" class="pwb-block pwb-flex-grid-wrap">
+              <div
+                id="i0op89-4-2-2-2-2-2-2"
+                class="pwb-block pwb-flex-grid-wrap"
+              >
+                <div id="iosqkh-2-3-2-2-2" class="pwb-block pwb-flex-grid-wrap">
+                  <div id="igxb-4-2-2-3-2-2-2-2-3-3-2-2" class="pwb-text">
+                    INSIGHTS
+                  </div>
+                </div>
+                <div id="igxb-3-2-2-2-2-2-2" class="pwb-text">
+                  AI Career Insights
+                </div>
+                <div
+                  id="iosqkh-2-3-2-2-2-2-3"
+                  class="pwb-block pwb-flex-grid-wrap"
+                >
+                  <div
+                    id="iosqkh-2-3-2-2-2-2"
+                    class="pwb-block pwb-flex-grid-wrap"
+                  >
+                    <div id="igxb-4-2-2-3-2-2-2-2-3-3-2-2-2" class="pwb-text">
+                      82%
+                    </div>
+                    <div id="igxb-4-2-2-3-2-2-2-2-3-3-2-2-2-3" class="pwb-text">
+                      Match Probability
+                    </div>
+                  </div>
+                  <div
+                    id="iosqkh-2-3-2-2-2-2-2"
+                    class="pwb-block pwb-flex-grid-wrap"
+                  >
+                    <div id="igxb-4-2-2-3-2-2-2-2-3-3-2-2-2-2" class="pwb-text">
+                      9/10
+                    </div>
+                    <div
+                      id="igxb-4-2-2-3-2-2-2-2-3-3-2-2-2-3-2"
+                      class="pwb-text"
+                    >
+                      Resume Strength
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="iy92-2-3-2-4" class="pwb-block pwb-flex-grid-wrap"></div>
+        </div>
+        <div id="ib9q-2-3-2-4-2-2-2" class="pwb-block pwb-flex-grid-wrap">
+          <div
+            id="i9x7-2-2-3-2"
+            class="pwb-block pwb-flex-grid-wrap"
+            style="display: flex; align-items: center"
+          >
+            <img
+              src="/assets/9026a31c-LOGO.svg"
+              style="
+                height: 60px;
+                object-fit: contain;
+                cursor: pointer;
+                filter: drop-shadow(0 0 10px rgba(0, 195, 255, 0.4));
+                transition: 0.3s;
+              "
+              onmouseover="this.style.transform = 'scale(1.05)'"
+              onmouseout="this.style.transform = 'scale(1)'"
+              alt="Project Logo"
+            />
+            <div
+              id="i0op89-4-2-2-2-2-2-2-2-2-2"
+              class="pwb-block pwb-flex-grid-wrap"
+            >
+              <div
+                id="iosqkh-2-3-2-2-2-3-2-2"
+                class="pwb-block pwb-flex-grid-wrap"
+              >
+                <div id="igxb-4-2-2-3-2-2-2-2-3-3-2-2-3-2-2" class="pwb-text">
+                  EVALUATE
+                </div>
+              </div>
+              <div id="igxb-3-2-2-2-2-2-2-2-2-4-2" class="pwb-text">
+                Mock Interview Simulator<br id="i8en8l-3-2" />
+              </div>
+              <div id="igxb-3-2-2-2-2-2-2-2-2-3-2-2" class="pwb-text">
+                Get actionable placement intelligence to analyze skill gaps,
+                predict placement probability, and match with the top tech
+                companies.<br id="i8en8l-2-2-2" />
+              </div>
+            </div>
+          </div>
+          <div
+            id="iy92-2-3-2-4-2-2-2"
+            class="pwb-block pwb-flex-grid-wrap"
+          ></div>
+        </div>
+        <div id="ib9q-2-3-2-4-3-2" class="pwb-block pwb-flex-grid-wrap">
+          <div id="ib9q-2-2" class="pwb-block pwb-flex-grid-wrap">
+            <div id="i9x7-2-2-2-2-2" class="pwb-block pwb-flex-grid-wrap">
+              <div id="iosqkh-2-3-2-3-2" class="pwb-block pwb-flex-grid-wrap">
+                <img
+                  src="/assets/9936a6e6-Union.svg"
+                  loading="lazy"
+                  id="i964g-3-2"
+                />
+                <div id="igxb-4-2-2-3-2-2-2-2-3-3-3-2" class="pwb-text">
+                  START PREPARATION
+                </div>
+              </div>
+              <div id="iosqkh-2-2-2-2-2-2" class="pwb-block pwb-flex-grid-wrap">
+                <div
+                  id="i0op89-3-2-2-2-2-2-2-3-2"
+                  class="pwb-block pwb-flex-grid-wrap"
+                >
+                  <div id="igxb-4-2-2-3-2-2-2-2-3-4-2" class="pwb-text">
+                    REALITY CHECK AI:<br id="i947el" />placement ready
+                  </div>
+                  <div id="igimd-2-2-2" class="pwb-flex-grid-wrap">
+                    <div id="igimd-3-2" class="pwb-flex-grid-wrap"></div>
+                    <div id="igxb-4-2-2-3-2-2-2-2-3-2-2-2" class="pwb-text">
+                      AI-powered placement intelligence that analyzes your
+                      skills, identifies career gaps, and guides you toward your
+                      dream company.<br id="ivbox-2-2" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Removed Assessment CTA -->
+            </div>
+            <div id="iosqkh-2-3-2-3-2-4-2" class="pwb-block pwb-flex-grid-wrap">
+              <img
+                src="/assets/40748243-animation-1720080510463.gif"
+                loading="lazy"
+                id="i964g-3-2-4-2"
+              />
+            </div>
+          </div>
+          <div id="iy92-2-3-2-4-3-2" class="pwb-block pwb-flex-grid-wrap"></div>
+        </div>
+      </div>
+      <div
+        id="irq9"
+        class="pwb-flex-grid-wrap"
+        style="
+          min-height: 100vh;
+          display: block;
+          background: transparent;
+          position: relative;
+          pointer-events: none;
+        "
+      >
+        <style>
+          .ai-sticky-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 5vh;
+            z-index: 10;
+            pointer-events: auto;
+            font-family: "Inter", sans-serif;
+            perspective: 1200px;
+          }
+
+          .holographic-bg-grid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50vh;
+            background-image:
+              linear-gradient(rgba(0, 195, 255, 0.15) 1px, transparent 1px),
+              linear-gradient(
+                90deg,
+                rgba(0, 195, 255, 0.15) 1px,
+                transparent 1px
+              );
+            background-size: 50px 50px;
+            transform: perspective(600px) rotateX(70deg) translateY(50px)
+              scale(3);
+            opacity: 0.3;
+            mask-image: linear-gradient(
+              to top,
+              rgba(0, 0, 0, 1),
+              rgba(0, 0, 0, 0)
+            );
+            -webkit-mask-image: linear-gradient(
+              to top,
+              rgba(0, 0, 0, 1),
+              rgba(0, 0, 0, 0)
+            );
+            z-index: 1;
+            pointer-events: none;
+          }
+
+          .hologram-console {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+            padding: 3rem;
+            position: relative;
+            z-index: 10;
+            background: rgba(10, 15, 30, 0.3);
+            border: 1px solid rgba(0, 195, 255, 0.2);
+            border-radius: 20px;
+            box-shadow:
+              0 0 50px rgba(0, 195, 255, 0.05),
+              inset 0 0 30px rgba(0, 195, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transform-style: preserve-3d;
+            transform: translateY(150px) translateZ(50px) rotateX(8deg);
+            opacity: 0;
+          }
+
+          @keyframes hologram-float {
+            0% {
+              transform: translateY(0px) rotateX(8deg);
+            }
+
+            50% {
+              transform: translateY(-12px) rotateX(4deg);
+            }
+
+            100% {
+              transform: translateY(0px) rotateX(8deg);
+            }
+          }
+
+          .hc-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            color: #00c3ff;
+            letter-spacing: 3px;
+            font-weight: 600;
+            text-transform: uppercase;
+          }
+
+          .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background: #00c3ff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #00c3ff;
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+          }
+
+          @keyframes ping {
+            75%,
+            100% {
+              transform: scale(2.5);
+              opacity: 0;
+            }
+          }
+
+          .hc-title {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 2.5rem;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            text-shadow: 0 0 40px rgba(0, 195, 255, 0.3);
+          }
+
+          .hc-title strong {
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #00c3ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+          }
+
+          .hc-chips {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+          }
+
+          .hc-chip {
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            color: #00c3ff;
+            border: 1px solid rgba(0, 195, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(0, 195, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: inset 0 0 15px rgba(0, 195, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+          }
+
+          .hc-chip:hover {
+            background: rgba(0, 195, 255, 0.2);
+            box-shadow:
+              0 0 20px rgba(0, 195, 255, 0.3),
+              inset 0 0 20px rgba(0, 195, 255, 0.3);
+            transform: translateY(-3px);
+            border-color: #00c3ff;
+            color: #fff;
+          }
+
+          .hc-chip::after {
+            content: "";
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 255, 255, 0.3),
+              transparent
+            );
+            transform: skewX(-20deg);
+            transition: 0.5s;
+          }
+
+          .hc-chip:hover::after {
+            left: 200%;
+          }
+
+          .hc-input-box {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 195, 255, 0.3);
+            border-radius: 16px;
+            padding: 14px 24px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+          }
+
+          .hc-input-box:focus-within {
+            border-color: #00c3ff;
+            box-shadow:
+              0 0 40px rgba(0, 195, 255, 0.3),
+              inset 0 0 30px rgba(0, 195, 255, 0.2);
+            transform: scale(1.02);
+          }
+
+          .hc-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 195, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 195, 255, 0.8);
+            opacity: 0.5;
+            animation: scan 3s linear infinite;
+          }
+
+          @keyframes scan {
+            0% {
+              top: 0;
+            }
+
+            100% {
+              top: 100%;
+            }
+          }
+
+          .hc-input-icon {
+            color: rgba(0, 195, 255, 0.6);
+            margin-right: 15px;
+            width: 24px;
+            height: 24px;
+          }
+
+          .hc-input-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 300;
+            transition: opacity 0.3s;
+          }
+
+          .hc-input-box input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+          }
+
+          .hc-activate-btn {
+            position: relative;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #00c3ff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #000;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(0, 195, 255, 0.6);
+            margin-left: 10px;
+            flex-shrink: 0;
+          }
+
+          .hc-activate-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(0, 195, 255, 0.9);
+          }
+
+          .hc-btn-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            border: 2px solid #00c3ff;
+            animation: pulse-btn 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          }
+
+          @keyframes pulse-btn {
+            0% {
+              transform: scale(1);
+              opacity: 1;
+            }
+
+            100% {
+              transform: scale(1.8);
+              opacity: 0;
+            }
+          }
+        </style>
+
+        <div class="holographic-bg-grid"></div>
+
+        <div class="ai-sticky-wrapper">
+          <div class="hologram-console">
+            <div class="hc-header">
+              <div class="pulse-dot"></div>
+              <span>REALITY CHECK AI // STANDBY</span>
+            </div>
+
+            <h1 class="hc-title">
+              Initialize Your<br /><strong>Reality Check AI</strong>
+            </h1>
+
+            <div class="hc-chips">
+              <div class="hc-chip">Resume Analysis</div>
+              <div class="hc-chip">DSA Strategy Roadmap</div>
+              <div class="hc-chip">HR Simulation Node</div>
+              <div class="hc-chip">Placement Sandbox</div>
+            </div>
+
+            <div class="hc-input-box">
+              <div class="hc-scanline"></div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="hc-input-icon"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                />
+              </svg>
+              <input
+                type="text"
+                id="hc-input-field"
+                placeholder="Establish connection... (e.g. Build my roadmap)"
+              />
+              <button class="hc-activate-btn">
+                <div class="hc-btn-pulse"></div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+        <script>
+          window.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hide bars initially so they can animate
+            document.querySelectorAll(".ai-bar").forEach((b) => {
+              b.dataset.height = b.style.height;
+              b.style.height = "0%";
+            });
+
+            // Cinematic tracking
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: ".ai-sticky-wrapper",
+                start: "top 95%", // Starts natively smoothly
+                end: "bottom bottom",
+                scrub: 1,
+              },
+            });
+
+            // Cinematic bottom-to-top reveal for hologram console
+            tl.to(".hologram-console", {
+              opacity: 1,
+              y: 0,
+              duration: 1.2,
+              ease: "power2.out",
+            }).call(() => {
+              document.querySelector(".hologram-console").style.animation =
+                "hologram-float 6s ease-in-out infinite alternate";
+            });
+
+            // Typewriter logic
+            const inputField = document.getElementById("hc-input-field");
+            const placeholders = [
+              "Build my placement roadmap...",
+              "Analyze my resume...",
+              "Prepare me for Amazon interview...",
+              "Generate DSA strategy...",
+            ];
+            let pIdx = 0;
+            setInterval(() => {
+              inputField.style.opacity = 0;
+              setTimeout(() => {
+                pIdx = (pIdx + 1) % placeholders.length;
+                inputField.setAttribute("placeholder", placeholders[pIdx]);
+                inputField.style.opacity = 1;
+              }, 300);
+            }, 3000);
+
+            // Cinematic Boot Up Redirection Sequence
+            const sendBtn = document.querySelector(".hc-activate-btn");
+            sendBtn.addEventListener("click", () => {
+              const consoleEl = document.querySelector(".hologram-console");
+              consoleEl.style.overflow = "hidden";
+
+              // Create a scanning laser line overlay inside the chat grid
+              const scanner = document.createElement("div");
+              scanner.style.position = "absolute";
+              scanner.style.top = "0";
+              scanner.style.left = "0";
+              scanner.style.width = "100%";
+              scanner.style.height = "4px";
+              scanner.style.background = "#00c3ff";
+              scanner.style.boxShadow =
+                "0 0 20px 10px rgba(0, 195, 255, 0.8), 0 0 40px 20px rgba(0, 195, 255, 0.4)";
+              scanner.style.zIndex = "99999";
+              scanner.style.opacity = "0";
+              consoleEl.appendChild(scanner);
+
+              const bt = gsap.timeline();
+
+              // Cinematic Lift & Zoom In
+              bt.to(".hologram-console", {
+                scale: 1.08,
+                y: -50,
+                boxShadow:
+                  "0 30px 80px rgba(0,195,255,0.4), inset 0 0 60px rgba(0,195,255,0.3)",
+                duration: 0.8,
+                ease: "power3.inOut",
+              })
+                // Trigger the contained scan
+                .to(scanner, { opacity: 1, duration: 0.1 })
+                .to(scanner, {
+                  top: "100%",
+                  duration: 1.0,
+                  ease: "power2.inOut",
+                })
+                .call(() => {
+                  // Create Blur Overlay
+                  const blurOverlay = document.createElement("div");
+                  blurOverlay.style.position = "fixed";
+                  blurOverlay.style.inset = "0";
+                  blurOverlay.style.background = "rgba(5, 8, 16, 0.85)";
+                  blurOverlay.style.backdropFilter = "blur(25px)";
+                  blurOverlay.style.WebkitBackdropFilter = "blur(25px)";
+                  blurOverlay.style.zIndex = "100000";
+                  blurOverlay.style.opacity = "0";
+                  blurOverlay.style.display = "flex";
+                  blurOverlay.style.flexDirection = "column";
+                  blurOverlay.style.alignItems = "center";
+                  blurOverlay.style.justifyContent = "center";
+                  blurOverlay.style.color = "#00c3ff";
+                  blurOverlay.style.fontFamily = "'Inter', sans-serif";
+
+                  blurOverlay.innerHTML = `
+                   <div style="width: 40px; height: 40px; border: 3px solid rgba(0,195,255,0.2); border-top-color: #00c3ff; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; box-shadow: 0 0 20px rgba(0,195,255,0.5);"></div>
+                   <div style="font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; animation: pulseText 1.5s ease-in-out infinite; margin-bottom: 10px;">Processing Intelligence</div>
+                   <div id="ai-loading-progress" style="font-size: 2.5rem; font-weight: 800; font-family: 'Orbitron', sans-serif; color: #fff; text-shadow: 0 0 15px rgba(0,195,255,0.8);">0%</div>
+                   <style>
+                     @keyframes spin { to { transform: rotate(360deg); } }
+                     @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 15px rgba(0,195,255,0.8); } }
+                   </style>
+                 `;
+                  document.body.appendChild(blurOverlay);
+
+                  gsap.to(blurOverlay, {
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: "power2.out",
+                  });
+
+                  // Counter logic simulating load
+                  let percentage = 0;
+                  let counterInterval = setInterval(() => {
+                    percentage += Math.floor(Math.random() * 5) + 3; // random jumps
+                    if (percentage >= 100) {
+                      percentage = 100;
+                      clearInterval(counterInterval);
+                    }
+                    const displayEl = document.getElementById(
+                      "ai-loading-progress",
+                    );
+                    if (displayEl) displayEl.innerText = percentage + "%";
+                  }, 40);
+
+                  // Wait then redirect
+                  setTimeout(() => {
+                    window.location.href = "realitycheck.html";
+                  }, 1800);
+                });
+            });
+          });
+        </script>
+      </div>
+    </div>
+    <div id="pwb-loading-wrap">
+      <div id="ikbsuj" class="pwb-flex-grid-wrap">
+        <div
+          id="ik8oi1"
+          size="40"
+          progressColor="#ff4100"
+          progressWidth="3"
+          backgroundColor="#ff4100"
+          backgroundWidth="1"
+          class="pwb-loading-bar"
+        >
+          <svg
+            width="86"
+            xmlns="http://www.w3.org/2000/svg"
+            height="86"
+            version="1.1"
+            viewPort="0 0 86 86"
+          >
+            <circle
+              r="40"
+              cx="43"
+              cy="43"
+              fill="transparent"
+              stroke="#ff4100"
+              stroke-width="1"
+              stroke-dasharray="251.32741228718345"
+              stroke-dashoffset="0"
+            ></circle>
+            <circle
+              r="40"
+              cx="43"
+              cy="43"
+              fill="transparent"
+              stroke="#ff4100"
+              stroke-width="3"
+              stroke-dasharray="251.32741228718345"
+              stroke-dashoffset="251.32741228718345"
+              class="pwb-loading-bar-circle"
+            ></circle>
+          </svg>
+          <div id="ijirst" class="pwb-loading-bar-text">0%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waterfall optimization -->
+    <script type="text/javascript">
+      window._pwPreviewResourceUrls = [];
+      (function waterfallOptimizationScript() {
+        window._pwPreviewResourceUrls = window._pwPreviewResourceUrls || [];
+        if (!window._pwLoadFileRequestsCache)
+          window._pwLoadFileRequestsCache = new Map();
+        if (!window._pwLoadFileResolveFnCache)
+          window._pwLoadFileResolveFnCache = new Map();
+        window._pwSetFileCache = (fileUrl, blob) => {
+          if (!window._pwLoadFileResolveFnCache)
+            throw new Error(
+              `Variable "_pwLoadFileResolveFnCache" is undefined.`,
+            );
+          const blobUrl = (window.URL || window.webkitURL).createObjectURL(
+            blob,
+          );
+          const resolveFn = window._pwLoadFileResolveFnCache.get(fileUrl);
+          if (!resolveFn)
+            throw new Error(
+              `Resolve function for file "${fileUrl}" not found.`,
+            );
+          resolveFn(blobUrl);
+        };
+        window._pwWaitForExplicitFileResolve = (fileUrl) => {
+          if (!window._pwLoadFileResolveFnCache)
+            throw new Error(
+              `Variable "_pwLoadFileResolveFnCache" is undefined.`,
+            );
+          if (!window._pwLoadFileRequestsCache)
+            throw new Error(
+              `Variable "_pwLoadFileRequestsCache" is undefined.`,
+            );
+          if (
+            window._pwLoadFileResolveFnCache.has(fileUrl) &&
+            window._pwLoadFileRequestsCache.has(fileUrl)
+          )
+            return;
+          let resolveFn = void 0;
+          const explicitWaitPromise = new Promise((resolve) => {
+            resolveFn = resolve;
+          });
+          window._pwLoadFileResolveFnCache.set(fileUrl, resolveFn);
+          window._pwLoadFileRequestsCache.set(fileUrl, explicitWaitPromise);
+        };
+        window._pwLoadFileFromCacheHelper = async (fileUrl) => {
+          if (!fileUrl) return void 0;
+          try {
+            const response = await fetch(fileUrl);
+            if (!response.ok) return void 0;
+            const blob = await response.blob();
+            const blobUrl = (window.URL || window.webkitURL).createObjectURL(
+              blob,
+            );
+            return blobUrl;
+          } catch (error) {
+            return void 0;
+          }
+        };
+        window._pwLoadFileFromCache = async (fileUrl) => {
+          if (!fileUrl) return void 0;
+          if (!window._pwLoadFileRequestsCache)
+            throw new Error(
+              `Variable "_pwLoadFileRequestsCache" is undefined.`,
+            );
+          let requestPromise = window._pwLoadFileRequestsCache.get(fileUrl);
+          if (!requestPromise) {
+            if (!window._pwLoadFileFromCacheHelper)
+              throw new Error(
+                `Function "_pwLoadFileFromCacheHelper" is undefined.`,
+              );
+            requestPromise = window._pwLoadFileFromCacheHelper(fileUrl);
+            window._pwLoadFileRequestsCache.set(fileUrl, requestPromise);
+          }
+          return await requestPromise;
+        };
+        for (const explicitResourceUrl of window._pwPreviewResourceUrls)
+          window._pwWaitForExplicitFileResolve(explicitResourceUrl);
+      })();
+    </script>
+
+    <script type="text/javascript">
+      window._pwExecLoadingPageJavascript = () => {
+        var items = document.querySelectorAll("#ik8oi1");
+        for (var i = 0, len = items.length; i < len; i++) {
+          (function () {
+            const _this = this;
+            if (!_this || _this.dataset.gjsType) return;
+            const loadingDuration = 4500;
+            const loadingStopAtTime = 5000;
+            if (!window._pwLoadingProgressEasing) {
+              window._pwLoadingProgressEasing = (x) => {
+                // clamp to 1 to avoid going past 100%
+                if (x >= 1) return 1;
+                return x < 0.5
+                  ? 4 * x * x * x
+                  : 1 - Math.pow(-2 * x + 2, 3) / 2;
+              };
+            }
+            if (!window._pwSetLoadingProgress) {
+              window._pwSetLoadingProgress = (
+                timeMilliseconds,
+                progressText,
+                circle,
+              ) => {
+                const progress = Math.round(
+                  window._pwLoadingProgressEasing(
+                    (timeMilliseconds + 50) / loadingDuration,
+                  ) * 100,
+                );
+                if (progressText) {
+                  progressText.dataset.time = `${timeMilliseconds}`;
+                  progressText.textContent = `${progress}%`;
+                }
+                if (!circle) return;
+                const radius = circle
+                  ? parseInt(circle.getAttribute("r") || "0")
+                  : 40;
+                const c = Math.PI * (radius * 2);
+                const circleProgress = ((100 - progress) / 100) * c;
+                circle.style.strokeDashoffset = `${circleProgress}`;
+              };
+            }
+            const timeId = setInterval(() => {
+              const progressText = Array.from(_this.children).find((el) =>
+                el.classList.contains("pwb-loading-bar-text"),
+              );
+              const circle = _this.querySelector(`.pwb-loading-bar-circle`);
+              const currentProgress = parseInt(
+                progressText.dataset.time || "0",
+              );
+              window._pwSetLoadingProgress(
+                currentProgress + 50,
+                progressText,
+                circle,
+              );
+              if (currentProgress >= loadingStopAtTime) {
+                clearInterval(timeId);
+              }
+            }, 50);
+          }).bind(items[i])();
+        }
+      };
+      window._pwExecLoadingPageJavascript();
+    </script>
+
+    <script src="/refinements.js"></script>
+  </body>
+</html>

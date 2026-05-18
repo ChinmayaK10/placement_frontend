@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Reality Check AI - Dedicated Workspace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+  <script type="module" src="/src/main.jsx"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #050810;
+      color: #fff;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      padding-top: 70px; /* Offset for fixed navigation bar */
+    }
+
+    /* ═══ SIDEBAR ═══ */
+    .sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: rgba(8, 12, 28, 0.98);
+      border-right: 1px solid rgba(0, 195, 255, 0.1);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                  width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                  min-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.3s ease;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      min-width: 0;
+      padding: 0;
+      opacity: 0;
+      border-right: none;
+    }
+
+    .sidebar-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+
+    .sidebar-logo svg { color: #00c3ff; }
+
+    .new-chat-btn {
+      background: #00c3ff;
+      color: #000;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .new-chat-btn:hover {
+      box-shadow: 0 0 22px rgba(0, 195, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .history-title {
+      font-size: 0.7rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .history-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow-y: auto;
+    }
+
+    .history-item {
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 1px solid transparent;
+    }
+
+    .history-item:hover {
+      background: rgba(0, 195, 255, 0.06);
+      color: #fff;
+      border-color: rgba(0, 195, 255, 0.18);
+    }
+
+    /* ═══ CHAT AREA ═══ */
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    /* ── Toggle button ── */
+    .sidebar-toggle {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      background: rgba(0, 195, 255, 0.08);
+      border: 1px solid rgba(0, 195, 255, 0.2);
+      border-radius: 50%;
+      color: #00c3ff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .sidebar-toggle:hover {
+      background: rgba(0, 195, 255, 0.18);
+      box-shadow: 0 0 16px rgba(0, 195, 255, 0.35);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .sidebar-toggle svg {
+      transition: transform 0.35s ease;
+    }
+
+    .sidebar-toggle.is-open svg {
+      transform: rotate(180deg);
+    }
+
+    .chat-header {
+      padding: 1rem 1rem 1rem 64px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-bottom: 1px solid rgba(0, 195, 255, 0.06);
+      z-index: 10;
+      background: rgba(5, 8, 16, 0.85);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 2.5rem 3rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 5;
+    }
+
+    .message {
+      max-width: 80%;
+      display: flex;
+      gap: 14px;
+      animation: popIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes popIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.ai   { align-self: flex-start; }
+    .message.user { align-self: flex-end; flex-direction: row-reverse; }
+
+    .avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ai .avatar {
+      background: rgba(0, 195, 255, 0.08);
+      box-shadow: 0 0 18px rgba(0, 195, 255, 0.35), inset 0 0 8px rgba(0, 195, 255, 0.4);
+      border: 1px solid rgba(0, 195, 255, 0.28);
+    }
+
+    .user .avatar { background: rgba(255,255,255,0.08); }
+
+    .msg-bubble {
+      padding: 16px 22px;
+      border-radius: 16px;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+
+    .ai .msg-bubble {
+      background: rgba(0, 195, 255, 0.05);
+      border: 1px solid rgba(0, 195, 255, 0.18);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      border-top-left-radius: 4px;
+    }
+
+    .user .msg-bubble {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-top-right-radius: 4px;
+    }
+
+    .chat-input-container {
+      padding: 1.5rem 3rem;
+      z-index: 10;
+      background: linear-gradient(to top, #050810 80%, transparent);
+      flex-shrink: 0;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(0, 195, 255, 0.28);
+      border-radius: 18px;
+      padding: 12px 20px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.7), inset 0 0 18px rgba(0,195,255,0.04);
+      transition: 0.3s;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .input-wrapper:focus-within {
+      border-color: #00c3ff;
+      box-shadow: 0 0 36px rgba(0,195,255,0.28), inset 0 0 18px rgba(0,195,255,0.15);
+    }
+
+    .input-wrapper input {
+      flex: 1;
+      background: transparent;
+      border: none; outline: none;
+      color: #fff;
+      font-size: 1rem;
+      padding: 0 14px;
+    }
+
+    .input-wrapper input::placeholder { color: rgba(255,255,255,0.28); }
+
+    .send-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #00c3ff;
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: 0.3s; color: #000;
+      box-shadow: 0 0 18px rgba(0,195,255,0.45);
+      flex-shrink: 0;
+    }
+
+    .send-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 28px rgba(0,195,255,0.85);
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(0,195,255,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0,195,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.5;
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,1), rgba(0,0,0,0));
+      -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1), rgba(0,0,0,0));
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v20" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
+      Reality Check AI
+    </div>
+
+    <button class="new-chat-btn" onclick="startNewSession()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+      New Intelligence
+    </button>
+
+    <div class="history-title">Recent Transmissions</div>
+    <ul class="history-list" id="sidebarHistoryList">
+      <!-- Dynamically populated -->
+    </ul>
+  </div>
+
+  <!-- Chat area -->
+  <div class="chat-area">
+    <div class="bg-grid"></div>
+
+    <!-- Header with toggle -->
+    <div class="chat-header">
+      <!-- Sidebar toggle button -->
+      <button class="sidebar-toggle is-open" id="sidebarToggle" onclick="toggleSidebar()" title="Toggle sidebar" aria-label="Toggle sidebar">
+        <svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages" id="chatbox">
+      <div class="message ai" style="animation-delay: 0.2s;">
+        <div class="avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00c3ff" stroke-width="2">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+            <circle cx="12" cy="12" r="2" />
+          </svg>
+        </div>
+        <div class="msg-bubble">
+          System online. I am Reality Check AI, your dedicated placement intelligence module.<br /><br />
+          Provide your commands. You may upload resumes, request DSA roadmaps, or trigger HR simulations.
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="chat-input-container">
+      <div class="input-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
+        </svg>
+        <input type="text" id="userInput" placeholder="Transmit query to Reality Check AI..." />
+        <button class="send-btn" onclick="sendMessage()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ── Sidebar toggle ── */
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const btn     = document.getElementById('sidebarToggle');
+      const isOpen  = !sidebar.classList.contains('collapsed');
+
+      if (isOpen) {
+        sidebar.classList.add('collapsed');
+        btn.classList.remove('is-open');
+      } else {
+        sidebar.classList.remove('collapsed');
+        btn.classList.add('is-open');
+      }
+    }
+
+    const USER_AVATAR = `<div class="avatar"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`;
+    const AI_AVATAR = `<div class="avatar"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00c3ff" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/><circle cx="12" cy="12" r="2"/></svg></div>`;
+    const DEFAULT_GREETING = `System online. I am Reality Check AI, your dedicated placement intelligence module.<br /><br />Provide your commands. You may upload resumes, request DSA roadmaps, or trigger HR simulations.`;
+
+    let currentSessionId = localStorage.getItem('rc_active_session') || null;
+
+    function getAuthToken() {
+      try {
+        const raw = localStorage.getItem('realityCheckSession');
+        if (!raw) return null;
+        const session = JSON.parse(raw);
+        return session.token || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function startNewSession() {
+      currentSessionId = null;
+      localStorage.removeItem('rc_active_session');
+      const chatbox = document.getElementById('chatbox');
+      chatbox.innerHTML = `<div class="message ai" style="animation-delay: 0.2s;">
+        ${AI_AVATAR}
+        <div class="msg-bubble">${DEFAULT_GREETING}</div>
+      </div>`;
+    }
+
+    async function loadSession(sessionId) {
+      currentSessionId = sessionId;
+      localStorage.setItem('rc_active_session', sessionId);
+      const token = getAuthToken();
+      if (!token) return;
+
+      try {
+        const res = await fetch(`http://localhost:8001/session/${sessionId}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Failed to load session");
+        const data = await res.json();
+        
+        const chatbox = document.getElementById('chatbox');
+        chatbox.innerHTML = '';
+        
+        if (data.messages && data.messages.length > 0) {
+          data.messages.forEach(msg => {
+            const div = document.createElement('div');
+            div.className = `message ${msg.role === 'user' ? 'user' : 'ai'}`;
+            div.innerHTML = `${msg.role === 'user' ? USER_AVATAR : AI_AVATAR}<div class="msg-bubble">${msg.content.replace(/\n/g, '<br/>')}</div>`;
+            chatbox.appendChild(div);
+          });
+        } else {
+          startNewSession();
+        }
+        chatbox.scrollTop = chatbox.scrollHeight;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function fetchSessions() {
+      const token = getAuthToken();
+      if (!token) return;
+      try {
+        const res = await fetch('http://localhost:8001/sessions', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) return;
+        const sessions = await res.json();
+        const list = document.getElementById('sidebarHistoryList');
+        list.innerHTML = '';
+        sessions.forEach(s => {
+          const li = document.createElement('li');
+          li.className = 'history-item';
+          li.textContent = s.title || 'New Chat';
+          li.onclick = () => {
+            if (window.innerWidth < 768) toggleSidebar(); // auto close on mobile
+            loadSession(s.session_id);
+          };
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const token = getAuthToken();
+      if (!token) {
+        alert("Authentication required. Please sign in.");
+        window.location.href = '/login.html';
+        return;
+      }
+      fetchSessions();
+      if (currentSessionId) {
+        loadSession(currentSessionId);
+      } else {
+        startNewSession();
+      }
+    });
+
+    /* ── Chat ── */
+    async function sendMessage() {
+      const input   = document.getElementById('userInput');
+      const val     = input.value.trim();
+      if (!val) return;
+
+      const token = getAuthToken();
+      if (!token) {
+        alert("Authentication required. Please sign in.");
+        window.location.href = '/login.html';
+        return;
+      }
+
+      const chatbox = document.getElementById('chatbox');
+
+      const userDiv = document.createElement('div');
+      userDiv.className = 'message user';
+      userDiv.innerHTML = `${USER_AVATAR}<div class="msg-bubble">${val}</div>`;
+      chatbox.appendChild(userDiv);
+      input.value = '';
+      chatbox.scrollTop = chatbox.scrollHeight;
+
+      const aiDiv = document.createElement('div');
+      aiDiv.className = 'message ai';
+      aiDiv.innerHTML = `${AI_AVATAR}<div class="msg-bubble">Processing...</div>`;
+      chatbox.appendChild(aiDiv);
+      chatbox.scrollTop = chatbox.scrollHeight;
+
+      try {
+        const payload = { message: val };
+        if (currentSessionId) payload.session_id = currentSessionId;
+
+        const res = await fetch('http://localhost:8001/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          if (res.status === 401) {
+            alert("Session expired. Please sign in again.");
+            window.location.href = '/login.html';
+            return;
+          }
+          throw new Error('Backend responded with an error');
+        }
+
+        const data = await res.json();
+        
+        // If this is a new session, update active tracking and refresh sidebar
+        if (currentSessionId !== data.session_id) {
+          currentSessionId = data.session_id;
+          localStorage.setItem('rc_active_session', currentSessionId);
+          fetchSessions();
+        }
+
+        const msgBubble = aiDiv.querySelector('.msg-bubble');
+        msgBubble.innerHTML = data.reply.replace(/\n/g, '<br/>');
+        chatbox.scrollTop = chatbox.scrollHeight;
+
+      } catch (err) {
+        console.error(err);
+        const msgBubble = aiDiv.querySelector('.msg-bubble');
+        msgBubble.innerHTML = `<span style="color: #ff4a4a;">Connection error. Please ensure backend is running.</span>`;
+      }
+    }
+
+    document.getElementById('userInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+</body>
+
+</html>

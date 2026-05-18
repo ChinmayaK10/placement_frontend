@@ -1,0 +1,31 @@
+{
+  "name": "lithium-ai-clone",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build-static.mjs",
+    "preview": "vite preview",
+    "mirror": "node scripts/mirror-assets.mjs",
+    "fetch-runtime": "node scripts/fetch-runtime.mjs",
+    "setup": "node scripts/fetch-runtime.mjs && node scripts/mirror-assets.mjs"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.3.0",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.15.0",
+    "jsdom": "^29.1.1",
+    "lucide-react": "^1.16.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwind-merge": "^3.6.0"
+  }
+}
